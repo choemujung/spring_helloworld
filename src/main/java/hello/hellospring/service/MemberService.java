@@ -15,7 +15,7 @@ public class MemberService {
      * 회원가입
      */
     public Long join(Member member) {
-        validateDuplicateMember(member); //중복 회원 검증
+        validateDuplicateMember(member); //중복 회원 검증 - 이름이 유일해야한다는 가정.
         memberRepository.save(member);
         return member.getId();
     }
@@ -23,7 +23,7 @@ public class MemberService {
         memberRepository.findByName(member.getName())
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 회원입니다.");
-                });
+                }); //같은 이름이 존재하면 예외 발생
     }
     /**
      * 전체 회원 조회
